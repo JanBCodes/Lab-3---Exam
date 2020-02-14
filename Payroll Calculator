@@ -9,9 +9,10 @@ HS_1=33.00; //Over 499.99
 HS_2=19.20;//=Less than 499.99
 tax_allowance=5000.00;
 
+alert(`ABC College Payroll Management System`)
 emp_id=prompt(`Enter Employee's ID/Badge Number`);
-emp_last_name=prompt(`Enter Employee's Last Name`);
 emp_first_name=prompt(`Enter Employee's First Name`);
+emp_last_name=prompt(`Enter Employee's Last Name`);
 staff_type=prompt(`Enter Employee's Type:\nL for Lecturers \nR for Regular Staff`);
 hours_worked=parseFloat(prompt(`How many hours worked?`));
 
@@ -34,8 +35,16 @@ if(staff_type == `L` || staff_type == `l`)
             //Total Deducations
             
             	if (m_ttl_income > 499.99)
-                {                
-           			ttl_deducations=(((m_ttl_income-tax_allowance)*income_tax)+HS_1);
+                {   
+                	if(m_ttl_income>tax_allowance)
+                    {
+                   		ttl_deducations=(((m_ttl_income-tax_allowance)*income_tax)+HS_1);
+                    }
+                    else
+                    {
+                    	ttl_deducations=(HS_1);
+                    }
+           			
                 }
                 else
                 {
@@ -62,8 +71,16 @@ if(staff_type == `L` || staff_type == `l`)
             //Total Deducations
             
             	if (b_ttl_income > 499.99)
-                {                
-           			ttl_deducations=(((b_ttl_income-tax_allowance)*income_tax)+HS_1);
+                {   
+                	if(b_ttl_income>tax_allowance)
+                    {
+                   		ttl_deducations=(((b_ttl_income-tax_allowance)*income_tax)+HS_1);
+                    }
+                    else
+                    {
+                    	ttl_deducations=(HS_1);
+                    }
+           			
                 }
                 else
                 {
@@ -98,11 +115,7 @@ else if (staff_type == `R` || staff_type == `r`)
             //Total Deducations
             
             	if (prorated_sal > 499.99)
-                {                
-                	//What happens when prorated_sal less than tax_allowance??? FML! 
-                    // Make new if/else if, based on what? - What rules?
-                    //Test Data 3 - Not compliant *fix code*
-                    
+                {                                    
                     if(prorated_sal>tax_allowance)
                     {
                    		ttl_deducations=(((prorated_sal-tax_allowance)*income_tax)+HS_1);
@@ -128,8 +141,8 @@ else if (staff_type == `R` || staff_type == `r`)
           	let salary, overtime;
           	
             // Total Income
-            overtime=((hours_worked-min_hours)*(r_o_p*2));
-        	  salary=(mth_sal + overtime);
+            	overtime=((hours_worked-min_hours)*(r_o_p*2));
+        	salary=(mth_sal + overtime);
             
             
             //Total Deducations
@@ -145,13 +158,13 @@ else if (staff_type == `R` || staff_type == `r`)
                 
         		// Net Salary
             	net_sal=(salary-ttl_deducations);
-              alert(`Employee Number: ${emp_id} \nEmployee First Name: ${emp_first_name} \nEmployee Last Name: ${emp_last_name} \nEmployee Class Code: ${staff_type} \nEmployee Gross Salary: ${salary} \nEmployee Deducations: ${ttl_deducations} \nEmployee Net Salary: ${net_sal}`);
+                alert(`Employee Number: ${emp_id} \nEmployee First Name: ${emp_first_name} \nEmployee Last Name: ${emp_last_name} \nEmployee Class Code: ${staff_type} \nEmployee Gross Salary: ${salary} \nEmployee Deducations: ${ttl_deducations} \nEmployee Net Salary: ${net_sal}`);
 
          
           }
           else
           {
-           		alert(`The information entered is invalid, please try again!`); 
+           	alert(`The information entered is invalid, please try again!`); 
           }        
             
 }
@@ -162,4 +175,3 @@ else
 }
 
 </script>
-
