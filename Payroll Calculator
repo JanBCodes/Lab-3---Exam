@@ -48,7 +48,15 @@ if(staff_type == `L` || staff_type == `l`)
                 }
                 else
                 {
-                	ttl_deducations=(((m_ttl_income-tax_allowance)*income_tax)+HS_2);
+                	
+                	if(m_ttl_income>tax_allowance)
+                    {
+                   		ttl_deducations=(((m_ttl_income-tax_allowance)*income_tax)+HS_2);
+                    }
+                    else
+                    {
+                    	ttl_deducations=(HS_2);
+                    }
                 }
                 
         	// Net Salary
@@ -74,17 +82,24 @@ if(staff_type == `L` || staff_type == `l`)
                 {   
                 	if(b_ttl_income>tax_allowance)
                     {
-                   		ttl_deducations=(((b_ttl_income-tax_allowance)*income_tax)+HS_1);
+                   		ttl_deducations=(((b_ttl_income-tax_allowance)*income_tax)+HS_2);
                     }
                     else
                     {
-                    	ttl_deducations=(HS_1);
+                    	ttl_deducations=(HS_2);
                     }
            			
                 }
                 else
                 {
-                	ttl_deducations=(((b_ttl_income-tax_allowance)*income_tax)+HS_2);
+                	if(b_ttl_income>tax_allowance)
+                    {
+                   		ttl_deducations=(((b_ttl_income-tax_allowance)*income_tax)+HS_2);
+                    }
+                    else
+                    {
+                    	ttl_deducations=(HS_2);
+                    }
                 }
                 
         	// Net Salary
@@ -115,7 +130,11 @@ else if (staff_type == `R` || staff_type == `r`)
             //Total Deducations
             
             	if (prorated_sal > 499.99)
-                {                                    
+                {                
+                	//What happens when prorated_sal less than tax_allowance??? FML! 
+                    // Make new if/else if, based on what? - What rules?
+                    //Test Data 3 - Not compliant *fix code*
+                    
                     if(prorated_sal>tax_allowance)
                     {
                    		ttl_deducations=(((prorated_sal-tax_allowance)*income_tax)+HS_1);
@@ -127,11 +146,18 @@ else if (staff_type == `R` || staff_type == `r`)
                 }
                 else
                 {
-                	ttl_deducations=(((prorated_sal-tax_allowance)*income_tax)+HS_2);
+                	if(prorated_sal>tax_allowance)
+                    {
+                   		ttl_deducations=(((prorated_sal-tax_allowance)*income_tax)+HS_2);
+                    }
+                    else
+                    {
+                    	ttl_deducations=(HS_2);
+                    }
+                	
                 }
                              
-                
-        		// Net Salary
+          		// Net Salary
             	net_sal=(prorated_sal-ttl_deducations);
                 alert(`Employee Number: ${emp_id} \nEmployee First Name: ${emp_first_name} \nEmployee Last Name: ${emp_last_name} \nEmployee Class Code: ${staff_type} \nEmployee Gross Salary: ${prorated_sal} \nEmployee Deducations: ${ttl_deducations} \nEmployee Net Salary: ${net_sal}`);
 		}
@@ -141,7 +167,7 @@ else if (staff_type == `R` || staff_type == `r`)
           	let salary, overtime;
           	
             // Total Income
-            	overtime=((hours_worked-min_hours)*(r_o_p*2));
+            overtime=((hours_worked-min_hours)*(r_o_p*2));
         	salary=(mth_sal + overtime);
             
             
@@ -164,7 +190,7 @@ else if (staff_type == `R` || staff_type == `r`)
           }
           else
           {
-           	alert(`The information entered is invalid, please try again!`); 
+           		alert(`The information entered is invalid, please try again!`); 
           }        
             
 }
@@ -175,3 +201,4 @@ else
 }
 
 </script>
+
